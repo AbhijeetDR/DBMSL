@@ -1,0 +1,314 @@
+**Schema (MySQL v5.7)**
+
+    
+
+---
+
+**Query #1**
+
+    create table PlacementDrive(Drive_id int, company_name varchar(20), package int, location varchar(20), primary key(Drive_id));
+
+There are no results to be displayed.
+
+---
+**Query #2**
+
+    create table Student(s_id int, Drive_id int, s_name varchar(20), cgpp float, s_branch varchar(20), primary key (s_id), foreign key (Drive_id) references PlacementDrive(Drive_id) on delete cascade);
+
+There are no results to be displayed.
+
+---
+**Query #3**
+
+    create table Training( T_id int, s_id int, company_name varchar(20), Tfee int, T_date date, primary key (T_id), foreign key (s_id) references Student(s_id) on delete cascade);
+
+There are no results to be displayed.
+
+---
+**Query #4**
+
+    desc PlacementDrive;
+
+| Field        | Type        | Null | Key | Default | Extra |
+| ------------ | ----------- | ---- | --- | ------- | ----- |
+| Drive_id     | int(11)     | NO   | PRI |         |       |
+| company_name | varchar(20) | YES  |     |         |       |
+| package      | int(11)     | YES  |     |         |       |
+| location     | varchar(20) | YES  |     |         |       |
+
+---
+**Query #5**
+
+    desc Student;
+
+| Field    | Type        | Null | Key | Default | Extra |
+| -------- | ----------- | ---- | --- | ------- | ----- |
+| s_id     | int(11)     | NO   | PRI |         |       |
+| Drive_id | int(11)     | YES  | MUL |         |       |
+| s_name   | varchar(20) | YES  |     |         |       |
+| cgpp     | float       | YES  |     |         |       |
+| s_branch | varchar(20) | YES  |     |         |       |
+
+---
+**Query #6**
+
+    desc Training;
+
+| Field        | Type        | Null | Key | Default | Extra |
+| ------------ | ----------- | ---- | --- | ------- | ----- |
+| T_id         | int(11)     | NO   | PRI |         |       |
+| s_id         | int(11)     | YES  | MUL |         |       |
+| company_name | varchar(20) | YES  |     |         |       |
+| Tfee         | int(11)     | YES  |     |         |       |
+| T_date       | date        | YES  |     |         |       |
+
+---
+**Query #7**
+
+    insert into PlacementDrive values
+    (1, "Google", 6000000, "Bangalore"),
+    (2, "Microsoft", 4500000, "Hyderabad"),
+    (3, "Amazon", 4400000, "Hyderabad"),
+    (4, "Meta", 3000000, "Mumbai"),
+    (5, "Mastercard", 1400000, "Pune"),
+    (6, "Barclays", 1300000, "Pune"),
+    (7, "Siemens", 500000, "Pune"),
+    (8, "Pubmatics", 700000, "Pune"),
+    (9, "Bajaj", 430000, "Pune"),
+    (10, "Jio", 300000, "Mumbai"),
+    (11, "TCS", 370000, "Mumbai"),
+    (12, "Deu Bank", 1900000, "Pune"),
+    (13, "Iitam", 1500000, "Hyderabad"),
+    (14, "Sagar Solutions", 40000, "Pune"),
+    (15, "ITO services", 30000, "Jalgoan"),
+    (16, "Ankit Irrigation Ltd",50000, "Pachora"),
+    (17, "Agro Comp", 500000, "Pune"),
+    (18, "Microsoft", 2800000, "Thane");
+
+There are no results to be displayed.
+
+---
+**Query #8**
+
+    select * from PlacementDrive;
+
+| Drive_id | company_name         | package | location  |
+| -------- | -------------------- | ------- | --------- |
+| 1        | Google               | 6000000 | Bangalore |
+| 2        | Microsoft            | 4500000 | Hyderabad |
+| 3        | Amazon               | 4400000 | Hyderabad |
+| 4        | Meta                 | 3000000 | Mumbai    |
+| 5        | Mastercard           | 1400000 | Pune      |
+| 6        | Barclays             | 1300000 | Pune      |
+| 7        | Siemens              | 500000  | Pune      |
+| 8        | Pubmatics            | 700000  | Pune      |
+| 9        | Bajaj                | 430000  | Pune      |
+| 10       | Jio                  | 300000  | Mumbai    |
+| 11       | TCS                  | 370000  | Mumbai    |
+| 12       | Deu Bank             | 1900000 | Pune      |
+| 13       | Iitam                | 1500000 | Hyderabad |
+| 14       | Sagar Solutions      | 40000   | Pune      |
+| 15       | ITO services         | 30000   | Jalgoan   |
+| 16       | Ankit Irrigation Ltd | 50000   | Pachora   |
+| 17       | Agro Comp            | 500000  | Pune      |
+| 18       | Microsoft            | 2800000 | Thane     |
+
+---
+**Query #9**
+
+    insert into Student values
+    (1, 1, "Abhijeet", 10, "COMP"),
+    (2, 2, "Shantanu", 9, "IT"),
+    (3, NULL, "Manas", 8, "COMP"),
+    (4, NULL, "Jadish", 9, "ENTC"),
+    (5, 3, "Ninad", 7, "COMP"),
+    (6, 6, "Naren", 9, "ENTC"),
+    (7, 14, "Raj", 8, "COMP"),
+    (8, 17, "Yogesh", 6, "COMP"),
+    (9, NULL, "Ramu", 5, "IT"),
+    (10, 8, "Ramnath", 8, "ENTC"),
+    (11, 18, "Ankit", 8, "IT"),
+    (12, 17, "Badri", 7, "ENTC"),
+    (13, 7, "Suresh", 10, "IT"),
+    (14, NULL, "Dharam", 5, "ENTC"),
+    (15, 18, "Dhiraj", 7, "COMP");
+
+There are no results to be displayed.
+
+---
+**Query #10**
+
+    select * from Student;
+
+| s_id | Drive_id | s_name   | cgpp | s_branch |
+| ---- | -------- | -------- | ---- | -------- |
+| 1    | 1        | Abhijeet | 10   | COMP     |
+| 2    | 2        | Shantanu | 9    | IT       |
+| 3    |          | Manas    | 8    | COMP     |
+| 4    |          | Jadish   | 9    | ENTC     |
+| 5    | 3        | Ninad    | 7    | COMP     |
+| 6    | 6        | Naren    | 9    | ENTC     |
+| 7    | 14       | Raj      | 8    | COMP     |
+| 8    | 17       | Yogesh   | 6    | COMP     |
+| 9    |          | Ramu     | 5    | IT       |
+| 10   | 8        | Ramnath  | 8    | ENTC     |
+| 11   | 18       | Ankit    | 8    | IT       |
+| 12   | 17       | Badri    | 7    | ENTC     |
+| 13   | 7        | Suresh   | 10   | IT       |
+| 14   |          | Dharam   | 5    | ENTC     |
+| 15   | 18       | Dhiraj   | 7    | COMP     |
+
+---
+**Query #11**
+
+    insert into Training values
+    (1,1, "CodingNigas", 40000, "2018-12-12"),
+    (2,2, "GFG", 30000, "2019-11-9"),
+    (3,3, "PepCoding", 60000, "2020-5-3"),
+    (4, 14,"PrepCode", 12000, "2021-4-12"),
+    (5, NULL,"WoMCode", 5000, "2022-6-1"),
+    (6, 15, "Regal", 7000, "2014-1-2"),
+    (7, 12,"CodersHi", 40000, "2019-2-27"),
+    (8, 7, "StriverSheet", 0, "2013-3-12"),
+    (9, 9,"GudduDSA", 3000, "2020-8-9"),
+    (10, 2, "Microsoft", 70000, "2015-7-12"),
+    (11, 2, "DSA coach", 12000, "2011-8-6"),
+    (12, 2, "Google", 5000, "2011-1-1"),
+    (13, 9, "JUSTcode", 1000, "2014-2-20");
+
+There are no results to be displayed.
+
+---
+**Query #12**
+
+    select s.* , p.* from Student as s natural join PlacementDrive as p;
+
+| s_id | Drive_id | s_name   | cgpp | s_branch | Drive_id | company_name    | package | location  |
+| ---- | -------- | -------- | ---- | -------- | -------- | --------------- | ------- | --------- |
+| 1    | 1        | Abhijeet | 10   | COMP     | 1        | Google          | 6000000 | Bangalore |
+| 2    | 2        | Shantanu | 9    | IT       | 2        | Microsoft       | 4500000 | Hyderabad |
+| 5    | 3        | Ninad    | 7    | COMP     | 3        | Amazon          | 4400000 | Hyderabad |
+| 6    | 6        | Naren    | 9    | ENTC     | 6        | Barclays        | 1300000 | Pune      |
+| 7    | 14       | Raj      | 8    | COMP     | 14       | Sagar Solutions | 40000   | Pune      |
+| 8    | 17       | Yogesh   | 6    | COMP     | 17       | Agro Comp       | 500000  | Pune      |
+| 10   | 8        | Ramnath  | 8    | ENTC     | 8        | Pubmatics       | 700000  | Pune      |
+| 11   | 18       | Ankit    | 8    | IT       | 18       | Microsoft       | 2800000 | Thane     |
+| 12   | 17       | Badri    | 7    | ENTC     | 17       | Agro Comp       | 500000  | Pune      |
+| 13   | 7        | Suresh   | 10   | IT       | 7        | Siemens         | 500000  | Pune      |
+| 15   | 18       | Dhiraj   | 7    | COMP     | 18       | Microsoft       | 2800000 | Thane     |
+
+---
+**Query #13**
+
+    select s.*, p.company_name from Student as s left join PlacementDrive as p on s.Drive_id = p.Drive_id;
+
+| s_id | Drive_id | s_name   | cgpp | s_branch | company_name    |
+| ---- | -------- | -------- | ---- | -------- | --------------- |
+| 1    | 1        | Abhijeet | 10   | COMP     | Google          |
+| 2    | 2        | Shantanu | 9    | IT       | Microsoft       |
+| 3    |          | Manas    | 8    | COMP     |                 |
+| 4    |          | Jadish   | 9    | ENTC     |                 |
+| 5    | 3        | Ninad    | 7    | COMP     | Amazon          |
+| 6    | 6        | Naren    | 9    | ENTC     | Barclays        |
+| 7    | 14       | Raj      | 8    | COMP     | Sagar Solutions |
+| 8    | 17       | Yogesh   | 6    | COMP     | Agro Comp       |
+| 9    |          | Ramu     | 5    | IT       |                 |
+| 10   | 8        | Ramnath  | 8    | ENTC     | Pubmatics       |
+| 11   | 18       | Ankit    | 8    | IT       | Microsoft       |
+| 12   | 17       | Badri    | 7    | ENTC     | Agro Comp       |
+| 13   | 7        | Suresh   | 10   | IT       | Siemens         |
+| 14   |          | Dharam   | 5    | ENTC     |                 |
+| 15   | 18       | Dhiraj   | 7    | COMP     | Microsoft       |
+
+---
+**Query #14**
+
+    select s.s_name, s.s_branch from Student as s left join PlacementDrive as p on s.Drive_id = p.Drive_id where p.package = 500000;
+
+| s_name | s_branch |
+| ------ | -------- |
+| Suresh | IT       |
+| Yogesh | COMP     |
+| Badri  | ENTC     |
+
+---
+**Query #15**
+
+    select s.s_name, t.company_name from Student as s right join Training as t on s.s_id = t.s_id where t.Tfee > 20000;
+
+| s_name   | company_name |
+| -------- | ------------ |
+| Abhijeet | CodingNigas  |
+| Shantanu | GFG          |
+| Manas    | PepCoding    |
+| Badri    | CodersHi     |
+| Shantanu | Microsoft    |
+
+---
+**Query #16**
+
+    select t.* from Training as t right join Student as s on t.s_id = s.s_id where s.s_name = "Shantanu" and year(t.T_date) = 2011;
+
+| T_id | s_id | company_name | Tfee  | T_date     |
+| ---- | ---- | ------------ | ----- | ---------- |
+| 11   | 2    | DSA coach    | 12000 | 2011-08-06 |
+| 12   | 2    | Google       | 5000  | 2011-01-01 |
+
+---
+**Query #17**
+
+    select count(*) as total from Training as t where year(t.T_date) < 2015;
+
+| total |
+| ----- |
+| 5     |
+
+---
+**Query #18**
+
+    select s.s_name from PlacementDrive as p left join Student as s on p.Drive_id = s.Drive_id where p.company_name = "Microsoft" and p.location = "Thane";
+
+| s_name |
+| ------ |
+| Ankit  |
+| Dhiraj |
+
+---
+**Query #19**
+
+    select s.s_name from Training t left join Student s on t.s_id = s.s_id where t.company_name = "Microsoft"  and year(t.T_date) = 2015;
+
+| s_name   |
+| -------- |
+| Shantanu |
+
+---
+**Query #20**
+
+    create view StudTrain as select t.T_id, s.s_name, t.company_name, t.Tfee, t.T_date from Training t inner join Student s on t.s_id = s.s_id;
+
+There are no results to be displayed.
+
+---
+**Query #21**
+
+    select * from StudTrain;
+
+| T_id | s_name   | company_name | Tfee  | T_date     |
+| ---- | -------- | ------------ | ----- | ---------- |
+| 1    | Abhijeet | CodingNigas  | 40000 | 2018-12-12 |
+| 2    | Shantanu | GFG          | 30000 | 2019-11-09 |
+| 3    | Manas    | PepCoding    | 60000 | 2020-05-03 |
+| 4    | Dharam   | PrepCode     | 12000 | 2021-04-12 |
+| 6    | Dhiraj   | Regal        | 7000  | 2014-01-02 |
+| 7    | Badri    | CodersHi     | 40000 | 2019-02-27 |
+| 8    | Raj      | StriverSheet | 0     | 2013-03-12 |
+| 9    | Ramu     | GudduDSA     | 3000  | 2020-08-09 |
+| 10   | Shantanu | Microsoft    | 70000 | 2015-07-12 |
+| 11   | Shantanu | DSA coach    | 12000 | 2011-08-06 |
+| 12   | Shantanu | Google       | 5000  | 2011-01-01 |
+| 13   | Ramu     | JUSTcode     | 1000  | 2014-02-20 |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/jxf12yLij7uit2ZbHgniKN/2)
