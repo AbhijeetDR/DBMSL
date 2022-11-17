@@ -1,0 +1,92 @@
+**Schema (MySQL v5.7)**
+
+    
+
+---
+
+**Query #1**
+
+    create table old_emp(id int, name varchar(30), role varchar(30), salary int);
+
+There are no results to be displayed.
+
+---
+**Query #2**
+
+    insert into old_emp values
+    (1, "Raju", "CEO", 1000),
+    (2, "Shaam", "CTO", 1000),
+    (3, "Babu", "ITUS", 2000),
+    (4, "Munna", "COO", 500),
+    (5, "Jetha", "Salesman", 1500),
+    (6, "Bagha","Showpiece" ,700),
+    (7, "Nattu", "SDE", 800);
+
+There are no results to be displayed.
+
+---
+**Query #3**
+
+    create table new_emp(id int, name varchar(20), role varchar(20), salary int);
+
+There are no results to be displayed.
+
+---
+**Query #4**
+
+    insert into new_emp values
+    (1, "Raju", "CEO", 1000),
+    (2, "Shaam", "CTO", 1000);
+
+There are no results to be displayed.
+
+---
+**Query #5**
+
+    create procedure merge()
+    begin
+    declare id1 int;
+    declare var1 boolean default False;
+    declare cur cursor for select id from old_emp;
+    
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET var1 = 1;
+    open cur;
+    loop1 : loop
+    fetch cur into id1;
+    if not exists (select * from new_emp where id = id1) then
+    insert into new_emp select id, name, role, salary from old_emp where id = id1;
+    end if;
+    if var1 then
+    close cur;
+    leave loop1;
+    end if;
+    end loop loop1;
+    end ;
+
+There are no results to be displayed.
+
+---
+**Query #6**
+
+    call merge;
+
+There are no results to be displayed.
+
+---
+**Query #7**
+
+    select * from new_emp;
+
+| id  | name  | role      | salary |
+| --- | ----- | --------- | ------ |
+| 1   | Raju  | CEO       | 1000   |
+| 2   | Shaam | CTO       | 1000   |
+| 3   | Babu  | ITUS      | 2000   |
+| 4   | Munna | COO       | 500    |
+| 5   | Jetha | Salesman  | 1500   |
+| 6   | Bagha | Showpiece | 700    |
+| 7   | Nattu | SDE       | 800    |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/jxf12yLij7uit2ZbHgniKN/2)
