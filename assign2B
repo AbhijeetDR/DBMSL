@@ -1,0 +1,122 @@
+create table PlacementDrive(Drive_id int, company_name varchar(20), package int, location varchar(20), primary key(Drive_id));
+
+create table Student(s_id int, Drive_id int, sname varchar(20), cgpa int, sbranch varchar(20), primary key(s_id), foreign key (Drive_id) references PlacementDrive(Drive_id) on delete cascade);
+
+create table Training(T_id int, Tcompanyname varchar(20), Tfee float, Tyear DATE,s_id int, primary key(T_id), foreign key (s_id) references Student(s_id) on delete cascade);
+
+desc PlacementDrive;
+desc Student;
+desc Training;
+
+
+insert into PlacementDrive values
+(1, "Google", 6000000, "Bangalore"),
+(2, "Microsoft", 4500000, "Hyderabad"),
+(3, "Amazon", 4400000, "Hyderabad"),
+(4, "Meta", 3000000, "Mumbai"),
+(5, "Mastercard", 1400000, "Pune"),
+(6, "Barclays", 1300000, "Pune"),
+(7, "Siemens", 500000, "Pune"),
+(8, "Pubmatics", 700000, "Pune"),
+(9, "Bajaj", 430000, "Pune"),
+(10, "Jio", 300000, "Mumbai"),
+(11, "TCS", 370000, "Mumbai"),
+(12, "Deu Bank", 1900000, "Pune"),
+(13, "Iitam", 1500000, "Hyderabad"),
+(14, "Sagar Solutions", 40000, "Pune"),
+(15, "ITO services", 30000, "Jalgoan"),
+(16, "Ankit Irrigation Ltd",50000, "Pachora"); 
+
+select * from PlacementDrive;
+
+insert into Student values
+(1, 1, "Abhijeet", 10, "COMP"),
+(2, 6, "Gaurav", 9, "COMP"),
+(3, 12, "Praneeth", 8, "COMP"),
+(4, 2, "Jamshed", 7, "COMP"),
+(5, 15, "Dhiraj", 9, "COMP"),
+(6, 16, "Kunj", 7, "IT"),
+(7, 1, "Yash", 8, "IT"),
+(8, 6, "Harsh", 6, "COMP"),
+(9, 10, "Om", 8, "ENTC"),
+(10, 5, "Chaitanya", 10,"ENTC"),
+(11, 9, "Soham", 8,"ENTC"),
+(12, 3, "PrathameshB", 10, "COMP"),
+(13, 4, "Atharva", 10, "COMP"),
+(14, 5, "PrathameshM", 9, "COMP"),
+(15, 6, "Prashant", 8, "ENTC"),
+(16, 7, "Dinesh", 10, "IT"),
+(17, NULL, "Manish", 5, "ENTC"),
+(18, NULL, "Ankit", 7, "IT"),
+(19, 16, "Daya", 8, "ENTC");
+
+
+select * from Student;
+
+insert into Training values
+(1, "CodingNigas", 40000, "2018-12-12", 1),
+(2, "GFG", 30000, "2019-11-9", 2),
+(3, "PepCoding", 60000, "2020-5-3", 3),
+(4, "PrepCode", 12000, "2021-4-12", 14),
+(5, "WoMCode", 5000, "2022-6-1", NULL),
+(6, "Regal", 7000, "2018-1-2", 18),
+(7, "CodersHi", 40000, "2019-2-27", 12),
+(8, "StriverSheet", 0, "2019-3-12", 7),
+(9, "GudduDSA", 3000, "2020-8-9", 9);
+
+select * from Training;
+
+#Display student with branch Computer and IT
+select * from Student where sbranch = "COMP" or sbranch = "IT";
+
+
+# Display student having starting name with 'a' or 'd'
+select * from Student where sname like "A%" or sname like "D%";
+
+
+# list the number of different companies
+select count(distinct company_name) from PlacementDrive;
+
+
+#Find names of company in Pune or Mumbai
+select company_name, location from PlacementDrive where location = "Pune" or location = "Mumbai";
+
+
+#Find names of company in Pune or Mumbai using "in"
+select company_name, location from PlacementDrive where location in ("Pune", "Mumbai");
+
+
+#Display max cgpa
+select max(cgpa) from Student;
+
+
+#display student names with max cgpa
+select sname, cgpa from Student where cgpa = (select max(cgpa) from Student);
+
+
+#display student names with cgpa betw 7 and 9
+select sname, cgpa from Student where cgpa between 7 and 9;
+
+
+#t_id, decreasing order of fees
+select * from Training order by Tfee DESC;
+
+
+#company name with package 30k,40k, 50k
+select p.company_name,s.sname, p.location, p.package from PlacementDrive as p left join Student as s on p.Drive_id = s.Drive_id where p.package in (30000, 40000, 50000);
+
+
+#Give 15% increase in fee of the Training with date of training year as 2019.
+select Tcompanyname, Tfee from Training where Year(Tyear) = 2019;
+update Training set Tfee=Tfee + Tfee*15/100 where YEAR(Tyear) = 2019;
+select Tcompanyname, Tfee from Training where Year(Tyear) = 2019;
+
+
+#Delete placementdrive details having package less than 500000.  
+delete from PlacementDrive where package < 500000;
+select * from PlacementDrive where package < 500000;
+
+
+
+
+
