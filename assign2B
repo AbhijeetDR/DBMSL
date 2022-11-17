@@ -1,122 +1,380 @@
-create table PlacementDrive(Drive_id int, company_name varchar(20), package int, location varchar(20), primary key(Drive_id));
+**Schema (MySQL v5.7)**
 
-create table Student(s_id int, Drive_id int, sname varchar(20), cgpa int, sbranch varchar(20), primary key(s_id), foreign key (Drive_id) references PlacementDrive(Drive_id) on delete cascade);
+    
 
-create table Training(T_id int, Tcompanyname varchar(20), Tfee float, Tyear DATE,s_id int, primary key(T_id), foreign key (s_id) references Student(s_id) on delete cascade);
+---
 
-desc PlacementDrive;
-desc Student;
-desc Training;
+**Query #1**
 
+    create table PlacementDrive(Drive_id int, company_name varchar(20), package int, location varchar(20), primary key(Drive_id));
 
-insert into PlacementDrive values
-(1, "Google", 6000000, "Bangalore"),
-(2, "Microsoft", 4500000, "Hyderabad"),
-(3, "Amazon", 4400000, "Hyderabad"),
-(4, "Meta", 3000000, "Mumbai"),
-(5, "Mastercard", 1400000, "Pune"),
-(6, "Barclays", 1300000, "Pune"),
-(7, "Siemens", 500000, "Pune"),
-(8, "Pubmatics", 700000, "Pune"),
-(9, "Bajaj", 430000, "Pune"),
-(10, "Jio", 300000, "Mumbai"),
-(11, "TCS", 370000, "Mumbai"),
-(12, "Deu Bank", 1900000, "Pune"),
-(13, "Iitam", 1500000, "Hyderabad"),
-(14, "Sagar Solutions", 40000, "Pune"),
-(15, "ITO services", 30000, "Jalgoan"),
-(16, "Ankit Irrigation Ltd",50000, "Pachora"); 
+There are no results to be displayed.
 
-select * from PlacementDrive;
+---
+**Query #2**
 
-insert into Student values
-(1, 1, "Abhijeet", 10, "COMP"),
-(2, 6, "Gaurav", 9, "COMP"),
-(3, 12, "Praneeth", 8, "COMP"),
-(4, 2, "Jamshed", 7, "COMP"),
-(5, 15, "Dhiraj", 9, "COMP"),
-(6, 16, "Kunj", 7, "IT"),
-(7, 1, "Yash", 8, "IT"),
-(8, 6, "Harsh", 6, "COMP"),
-(9, 10, "Om", 8, "ENTC"),
-(10, 5, "Chaitanya", 10,"ENTC"),
-(11, 9, "Soham", 8,"ENTC"),
-(12, 3, "PrathameshB", 10, "COMP"),
-(13, 4, "Atharva", 10, "COMP"),
-(14, 5, "PrathameshM", 9, "COMP"),
-(15, 6, "Prashant", 8, "ENTC"),
-(16, 7, "Dinesh", 10, "IT"),
-(17, NULL, "Manish", 5, "ENTC"),
-(18, NULL, "Ankit", 7, "IT"),
-(19, 16, "Daya", 8, "ENTC");
+    create table Student(s_id int, Drive_id int, sname varchar(20), cgpa int, sbranch varchar(20), primary key(s_id), foreign key (Drive_id) references PlacementDrive(Drive_id) on delete cascade);
 
+There are no results to be displayed.
 
-select * from Student;
+---
+**Query #3**
 
-insert into Training values
-(1, "CodingNigas", 40000, "2018-12-12", 1),
-(2, "GFG", 30000, "2019-11-9", 2),
-(3, "PepCoding", 60000, "2020-5-3", 3),
-(4, "PrepCode", 12000, "2021-4-12", 14),
-(5, "WoMCode", 5000, "2022-6-1", NULL),
-(6, "Regal", 7000, "2018-1-2", 18),
-(7, "CodersHi", 40000, "2019-2-27", 12),
-(8, "StriverSheet", 0, "2019-3-12", 7),
-(9, "GudduDSA", 3000, "2020-8-9", 9);
+    create table Training(T_id int, Tcompanyname varchar(20), Tfee float, Tyear DATE,s_id int, primary key(T_id), foreign key (s_id) references Student(s_id) on delete cascade);
 
-select * from Training;
+There are no results to be displayed.
 
-#Display student with branch Computer and IT
-select * from Student where sbranch = "COMP" or sbranch = "IT";
+---
+**Query #4**
 
+    desc PlacementDrive;
 
-# Display student having starting name with 'a' or 'd'
-select * from Student where sname like "A%" or sname like "D%";
+| Field        | Type        | Null | Key | Default | Extra |
+| ------------ | ----------- | ---- | --- | ------- | ----- |
+| Drive_id     | int(11)     | NO   | PRI |         |       |
+| company_name | varchar(20) | YES  |     |         |       |
+| package      | int(11)     | YES  |     |         |       |
+| location     | varchar(20) | YES  |     |         |       |
 
+---
+**Query #5**
 
-# list the number of different companies
-select count(distinct company_name) from PlacementDrive;
+    desc Student;
 
+| Field    | Type        | Null | Key | Default | Extra |
+| -------- | ----------- | ---- | --- | ------- | ----- |
+| s_id     | int(11)     | NO   | PRI |         |       |
+| Drive_id | int(11)     | YES  | MUL |         |       |
+| sname    | varchar(20) | YES  |     |         |       |
+| cgpa     | int(11)     | YES  |     |         |       |
+| sbranch  | varchar(20) | YES  |     |         |       |
 
-#Find names of company in Pune or Mumbai
-select company_name, location from PlacementDrive where location = "Pune" or location = "Mumbai";
+---
+**Query #6**
 
+    desc Training;
 
-#Find names of company in Pune or Mumbai using "in"
-select company_name, location from PlacementDrive where location in ("Pune", "Mumbai");
+| Field        | Type        | Null | Key | Default | Extra |
+| ------------ | ----------- | ---- | --- | ------- | ----- |
+| T_id         | int(11)     | NO   | PRI |         |       |
+| Tcompanyname | varchar(20) | YES  |     |         |       |
+| Tfee         | float       | YES  |     |         |       |
+| Tyear        | date        | YES  |     |         |       |
+| s_id         | int(11)     | YES  | MUL |         |       |
 
+---
+**Query #7**
 
-#Display max cgpa
-select max(cgpa) from Student;
+    insert into PlacementDrive values
+    (1, "Google", 6000000, "Bangalore"),
+    (2, "Microsoft", 4500000, "Hyderabad"),
+    (3, "Amazon", 4400000, "Hyderabad"),
+    (4, "Meta", 3000000, "Mumbai"),
+    (5, "Mastercard", 1400000, "Pune"),
+    (6, "Barclays", 1300000, "Pune"),
+    (7, "Siemens", 500000, "Pune"),
+    (8, "Pubmatics", 700000, "Pune"),
+    (9, "Bajaj", 430000, "Pune"),
+    (10, "Jio", 300000, "Mumbai"),
+    (11, "TCS", 370000, "Mumbai"),
+    (12, "Deu Bank", 1900000, "Pune"),
+    (13, "Iitam", 1500000, "Hyderabad"),
+    (14, "Sagar Solutions", 40000, "Pune"),
+    (15, "ITO services", 30000, "Jalgoan"),
+    (16, "Ankit Irrigation Ltd",50000, "Pachora");
 
+There are no results to be displayed.
 
-#display student names with max cgpa
-select sname, cgpa from Student where cgpa = (select max(cgpa) from Student);
+---
+**Query #8**
 
+    select * from PlacementDrive;
 
-#display student names with cgpa betw 7 and 9
-select sname, cgpa from Student where cgpa between 7 and 9;
+| Drive_id | company_name         | package | location  |
+| -------- | -------------------- | ------- | --------- |
+| 1        | Google               | 6000000 | Bangalore |
+| 2        | Microsoft            | 4500000 | Hyderabad |
+| 3        | Amazon               | 4400000 | Hyderabad |
+| 4        | Meta                 | 3000000 | Mumbai    |
+| 5        | Mastercard           | 1400000 | Pune      |
+| 6        | Barclays             | 1300000 | Pune      |
+| 7        | Siemens              | 500000  | Pune      |
+| 8        | Pubmatics            | 700000  | Pune      |
+| 9        | Bajaj                | 430000  | Pune      |
+| 10       | Jio                  | 300000  | Mumbai    |
+| 11       | TCS                  | 370000  | Mumbai    |
+| 12       | Deu Bank             | 1900000 | Pune      |
+| 13       | Iitam                | 1500000 | Hyderabad |
+| 14       | Sagar Solutions      | 40000   | Pune      |
+| 15       | ITO services         | 30000   | Jalgoan   |
+| 16       | Ankit Irrigation Ltd | 50000   | Pachora   |
 
+---
+**Query #9**
 
-#t_id, decreasing order of fees
-select * from Training order by Tfee DESC;
+    insert into Student values
+    (1, 1, "Abhijeet", 10, "COMP"),
+    (2, 6, "Gaurav", 9, "COMP"),
+    (3, 12, "Praneeth", 8, "COMP"),
+    (4, 2, "Jamshed", 7, "COMP"),
+    (5, 15, "Dhiraj", 9, "COMP"),
+    (6, 16, "Kunj", 7, "IT"),
+    (7, 1, "Yash", 8, "IT"),
+    (8, 6, "Harsh", 6, "COMP"),
+    (9, 10, "Om", 8, "ENTC"),
+    (10, 5, "Chaitanya", 10,"ENTC"),
+    (11, 9, "Soham", 8,"ENTC"),
+    (12, 3, "PrathameshB", 10, "COMP"),
+    (13, 4, "Atharva", 10, "COMP"),
+    (14, 5, "PrathameshM", 9, "COMP"),
+    (15, 6, "Prashant", 8, "ENTC"),
+    (16, 7, "Dinesh", 10, "IT"),
+    (17, NULL, "Manish", 5, "ENTC"),
+    (18, NULL, "Ankit", 7, "IT"),
+    (19, 16, "Daya", 8, "ENTC");
 
+There are no results to be displayed.
 
-#company name with package 30k,40k, 50k
-select p.company_name,s.sname, p.location, p.package from PlacementDrive as p left join Student as s on p.Drive_id = s.Drive_id where p.package in (30000, 40000, 50000);
+---
+**Query #10**
 
+    select * from Student;
 
-#Give 15% increase in fee of the Training with date of training year as 2019.
-select Tcompanyname, Tfee from Training where Year(Tyear) = 2019;
-update Training set Tfee=Tfee + Tfee*15/100 where YEAR(Tyear) = 2019;
-select Tcompanyname, Tfee from Training where Year(Tyear) = 2019;
+| s_id | Drive_id | sname       | cgpa | sbranch |
+| ---- | -------- | ----------- | ---- | ------- |
+| 1    | 1        | Abhijeet    | 10   | COMP    |
+| 2    | 6        | Gaurav      | 9    | COMP    |
+| 3    | 12       | Praneeth    | 8    | COMP    |
+| 4    | 2        | Jamshed     | 7    | COMP    |
+| 5    | 15       | Dhiraj      | 9    | COMP    |
+| 6    | 16       | Kunj        | 7    | IT      |
+| 7    | 1        | Yash        | 8    | IT      |
+| 8    | 6        | Harsh       | 6    | COMP    |
+| 9    | 10       | Om          | 8    | ENTC    |
+| 10   | 5        | Chaitanya   | 10   | ENTC    |
+| 11   | 9        | Soham       | 8    | ENTC    |
+| 12   | 3        | PrathameshB | 10   | COMP    |
+| 13   | 4        | Atharva     | 10   | COMP    |
+| 14   | 5        | PrathameshM | 9    | COMP    |
+| 15   | 6        | Prashant    | 8    | ENTC    |
+| 16   | 7        | Dinesh      | 10   | IT      |
+| 17   |          | Manish      | 5    | ENTC    |
+| 18   |          | Ankit       | 7    | IT      |
+| 19   | 16       | Daya        | 8    | ENTC    |
 
+---
+**Query #11**
 
-#Delete placementdrive details having package less than 500000.  
-delete from PlacementDrive where package < 500000;
-select * from PlacementDrive where package < 500000;
+    insert into Training values
+    (1, "CodingNigas", 40000, "2018-12-12", 1),
+    (2, "GFG", 30000, "2019-11-9", 2),
+    (3, "PepCoding", 60000, "2020-5-3", 3),
+    (4, "PrepCode", 12000, "2021-4-12", 14),
+    (5, "WoMCode", 5000, "2022-6-1", NULL),
+    (6, "Regal", 7000, "2018-1-2", 18),
+    (7, "CodersHi", 40000, "2019-2-27", 12),
+    (8, "StriverSheet", 0, "2019-3-12", 7),
+    (9, "GudduDSA", 3000, "2020-8-9", 9);
 
+There are no results to be displayed.
 
+---
+**Query #12**
 
+    select * from Training;
 
+| T_id | Tcompanyname | Tfee  | Tyear      | s_id |
+| ---- | ------------ | ----- | ---------- | ---- |
+| 1    | CodingNigas  | 40000 | 2018-12-12 | 1    |
+| 2    | GFG          | 30000 | 2019-11-09 | 2    |
+| 3    | PepCoding    | 60000 | 2020-05-03 | 3    |
+| 4    | PrepCode     | 12000 | 2021-04-12 | 14   |
+| 5    | WoMCode      | 5000  | 2022-06-01 |      |
+| 6    | Regal        | 7000  | 2018-01-02 | 18   |
+| 7    | CodersHi     | 40000 | 2019-02-27 | 12   |
+| 8    | StriverSheet | 0     | 2019-03-12 | 7    |
+| 9    | GudduDSA     | 3000  | 2020-08-09 | 9    |
 
+---
+**Query #13**
+
+    select * from Student where sbranch = "COMP" or sbranch = "IT";
+
+| s_id | Drive_id | sname       | cgpa | sbranch |
+| ---- | -------- | ----------- | ---- | ------- |
+| 1    | 1        | Abhijeet    | 10   | COMP    |
+| 2    | 6        | Gaurav      | 9    | COMP    |
+| 3    | 12       | Praneeth    | 8    | COMP    |
+| 4    | 2        | Jamshed     | 7    | COMP    |
+| 5    | 15       | Dhiraj      | 9    | COMP    |
+| 6    | 16       | Kunj        | 7    | IT      |
+| 7    | 1        | Yash        | 8    | IT      |
+| 8    | 6        | Harsh       | 6    | COMP    |
+| 12   | 3        | PrathameshB | 10   | COMP    |
+| 13   | 4        | Atharva     | 10   | COMP    |
+| 14   | 5        | PrathameshM | 9    | COMP    |
+| 16   | 7        | Dinesh      | 10   | IT      |
+| 18   |          | Ankit       | 7    | IT      |
+
+---
+**Query #14**
+
+    select * from Student where sname like "A%" or sname like "D%";
+
+| s_id | Drive_id | sname    | cgpa | sbranch |
+| ---- | -------- | -------- | ---- | ------- |
+| 1    | 1        | Abhijeet | 10   | COMP    |
+| 5    | 15       | Dhiraj   | 9    | COMP    |
+| 13   | 4        | Atharva  | 10   | COMP    |
+| 16   | 7        | Dinesh   | 10   | IT      |
+| 18   |          | Ankit    | 7    | IT      |
+| 19   | 16       | Daya     | 8    | ENTC    |
+
+---
+**Query #15**
+
+    select count(distinct company_name) from PlacementDrive;
+
+| count(distinct company_name) |
+| ---------------------------- |
+| 16                           |
+
+---
+**Query #16**
+
+    select company_name, location from PlacementDrive where location = "Pune" or location = "Mumbai";
+
+| company_name    | location |
+| --------------- | -------- |
+| Meta            | Mumbai   |
+| Mastercard      | Pune     |
+| Barclays        | Pune     |
+| Siemens         | Pune     |
+| Pubmatics       | Pune     |
+| Bajaj           | Pune     |
+| Jio             | Mumbai   |
+| TCS             | Mumbai   |
+| Deu Bank        | Pune     |
+| Sagar Solutions | Pune     |
+
+---
+**Query #17**
+
+    select company_name, location from PlacementDrive where location in ("Pune", "Mumbai");
+
+| company_name    | location |
+| --------------- | -------- |
+| Meta            | Mumbai   |
+| Mastercard      | Pune     |
+| Barclays        | Pune     |
+| Siemens         | Pune     |
+| Pubmatics       | Pune     |
+| Bajaj           | Pune     |
+| Jio             | Mumbai   |
+| TCS             | Mumbai   |
+| Deu Bank        | Pune     |
+| Sagar Solutions | Pune     |
+
+---
+**Query #18**
+
+    select max(cgpa) from Student;
+
+| max(cgpa) |
+| --------- |
+| 10        |
+
+---
+**Query #19**
+
+    select sname, cgpa from Student where cgpa = (select max(cgpa) from Student);
+
+| sname       | cgpa |
+| ----------- | ---- |
+| Abhijeet    | 10   |
+| Chaitanya   | 10   |
+| PrathameshB | 10   |
+| Atharva     | 10   |
+| Dinesh      | 10   |
+
+---
+**Query #20**
+
+    select sname, cgpa from Student where cgpa between 7 and 9;
+
+| sname       | cgpa |
+| ----------- | ---- |
+| Gaurav      | 9    |
+| Praneeth    | 8    |
+| Jamshed     | 7    |
+| Dhiraj      | 9    |
+| Kunj        | 7    |
+| Yash        | 8    |
+| Om          | 8    |
+| Soham       | 8    |
+| PrathameshM | 9    |
+| Prashant    | 8    |
+| Ankit       | 7    |
+| Daya        | 8    |
+
+---
+**Query #21**
+
+    select * from Training order by Tfee DESC;
+
+| T_id | Tcompanyname | Tfee  | Tyear      | s_id |
+| ---- | ------------ | ----- | ---------- | ---- |
+| 3    | PepCoding    | 60000 | 2020-05-03 | 3    |
+| 1    | CodingNigas  | 40000 | 2018-12-12 | 1    |
+| 7    | CodersHi     | 40000 | 2019-02-27 | 12   |
+| 2    | GFG          | 30000 | 2019-11-09 | 2    |
+| 4    | PrepCode     | 12000 | 2021-04-12 | 14   |
+| 6    | Regal        | 7000  | 2018-01-02 | 18   |
+| 5    | WoMCode      | 5000  | 2022-06-01 |      |
+| 9    | GudduDSA     | 3000  | 2020-08-09 | 9    |
+| 8    | StriverSheet | 0     | 2019-03-12 | 7    |
+
+---
+**Query #22**
+
+    select p.company_name,s.sname, p.location, p.package from PlacementDrive as p left join Student as s on p.Drive_id = s.Drive_id where p.package in (30000, 40000, 50000);
+
+| company_name         | location | package | sname  |
+| -------------------- | -------- | ------- | ------ |
+| Sagar Solutions      | Pune     | 40000   |        |
+| ITO services         | Jalgoan  | 30000   | Dhiraj |
+| Ankit Irrigation Ltd | Pachora  | 50000   | Kunj   |
+| Ankit Irrigation Ltd | Pachora  | 50000   | Daya   |
+
+---
+**Query #23**
+
+    select Tcompanyname, Tfee from Training where Year(Tyear) = 2019;
+
+| Tcompanyname | Tfee  |
+| ------------ | ----- |
+| GFG          | 30000 |
+| CodersHi     | 40000 |
+| StriverSheet | 0     |
+
+---
+**Query #24**
+
+    update Training set Tfee=Tfee + Tfee*15/100 where YEAR(Tyear) = 2019;
+
+There are no results to be displayed.
+
+---
+**Query #25**
+
+    select Tcompanyname, Tfee from Training where Year(Tyear) = 2019;
+
+| Tcompanyname | Tfee  |
+| ------------ | ----- |
+| GFG          | 34500 |
+| CodersHi     | 46000 |
+| StriverSheet | 0     |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/)
